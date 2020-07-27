@@ -5,11 +5,17 @@ import time
 import sys
 
 cwd = sys.argv[1]
-script = sys.argv[2]
+index = 2
+while index != len(sys.argv) - 1:
+    cwd += " "
+    cwd += sys.argv[index]
+    index += 1
+script = sys.argv[index]
 
 start = time.time()
-exitcode = subprocess.call(
-    ['python', script], cwd=cwd, stderr=subprocess.STDOUT)
+
+
+exitcode = subprocess.call(["python", script], cwd=cwd, stderr=subprocess.STDOUT)
 
 
 end = time.time()
@@ -18,9 +24,13 @@ seconds = end - start
 
 print()
 print(
-    'Process return {0} ({1})   execution time: {2:.03f} s'.format(exitcode, hex(exitcode), seconds))
+    "Process return {0} ({1})   execution time: {2:.03f} s".format(
+        exitcode, hex(exitcode), seconds
+    )
+)
 
-if sys.platform == 'win32':
+if sys.platform == "win32":
     subprocess.call("pause", shell=True)
 else:
     input("Press Enter to continue...")
+
